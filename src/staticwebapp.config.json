@@ -1,5 +1,12 @@
 {
   "navigationFallback": {
     "rewrite": "/index.html"
+  },
+  "globalHeaders": {
+    "Cache-Control": "no-cache, must-revalidate"
+  },
+  "mimeTypes": {
+    ".css": "text/css",
+    ".js": "application/javascript"
   }
 }
