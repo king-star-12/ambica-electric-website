@@ -407,8 +407,9 @@
             </div>
 
             <div class="qr-footer">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aeisindia.com" alt="QR Code">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.aeisindia.com" alt="QR Code">
                 <p class="footer-tag">Industrial Excellence Since 1978</p>
+                <a href="https://www.aeisindia.com/AEIS_Contact.vcf" class="action-link link-save-pdf" style="margin-top: 15px; width: 100%; max-width: 220px; margin-left: auto; margin-right: auto; background: var(--accent); color: white; padding: 12px; font-size: 0.8rem;"><i class="fas fa-user-plus"></i> Save Contact</a>
             </div>
         </div>
     </div>
@@ -425,12 +426,16 @@
     <script>
         document.getElementById('downloadPDF').addEventListener('click', function() {
             const element = document.getElementById('card-to-export');
+            
+            // Get precise dimensions to make PDF exactly the size of the card
+            const rect = element.getBoundingClientRect();
+            
             const opt = {
                 margin:       0,
                 filename:     'AEIS_Contact_Card.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 3, useCORS: true },
-                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                html2canvas:  { scale: 3, useCORS: true, width: rect.width, height: rect.height },
+                jsPDF:        { unit: 'px', format: [rect.width, rect.height], orientation: 'portrait' }
             };
             this.innerHTML = 'Generating...';
             html2pdf().set(opt).from(element).save().then(() => {
@@ -439,11 +444,7 @@
         });
 
         document.getElementById('saveVCF').addEventListener('click', function() {
-            const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Ambica Electric & Instrument Services\nORG:Ambica Electric & Instrument Services\nTEL;TYPE=WORK,VOICE:+919974677110\nTEL;TYPE=WORK,VOICE:+919974086859\nEMAIL:aeis_india@yahoo.co.in\nURL:https://aeisindia.com\nEND:VCARD";
-            const blob = new Blob([vcard], { type: "text/vcard" });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url; a.download = "AEIS_Contact.vcf"; a.click();
+            window.location.href = 'https://www.aeisindia.com/AEIS_Contact.vcf';
         });
     </script>
 </body>
